@@ -1,0 +1,44 @@
+<p>
+  welcome {{model.name}} {{model.lastName}}!
+</p>
+<div class="ui input">
+<input   type="text"  [(ngModel)]='model.name' />{{model.name.length}}
+
+<input  type="text"  [(ngModel)]='model.lastName' />
+</div>
+
+<div class="ui checkbox">
+  <input type="checkbox" [(ngModel)]='model.gender'/>
+  <label>Gender</label>
+</div>
+<button  class="ui button" (click)="clicked()">
+    <p *ngIf="!isLoading">Click me!</p>
+    <i *ngIf="isLoading" class="notched circle loading icon"></i>
+</button>
+
+<img [ngStyle]="{'width.px': imageWidth}" src="{{model.photo}}">
+
+<div class="ui message" [ngClass]="{'femenino':model.gender,'masculino':!model.gender}">
+    
+    <div class="header">
+        Selected Genre
+      </div>
+        <div *ngIf="model.gender">FEMENINO</div>
+  <div *ngIf="!model.gender">MASCULINO</div>
+      
+</div>
+
+<button class="ui button basic" (click)="addItem()">Add</button>
+<button class="ui button basic" (click)="removeItem()">Remove</button>
+
+<ul class="ui list" *ngFor="let item of array; let i = index">
+  <li class="item" (click)="selectItem(item)">{{item}}&nbsp;{{i}}</li>
+</ul>
+<pre>
+  {{model | json}}
+</pre>
+
+
+
+
+
