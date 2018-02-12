@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from '../../services/account.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-login',
@@ -10,12 +12,25 @@ export class LoginComponent implements OnInit {
   model:any={email:'', password:''};
   errorMessage:string;
 
-  constructor() { }
+  constructor(private _accountService: AccountService, private _router:Router) { }
 
   ngOnInit() {
+    var token = this._accountService.getToken();
+    console.log(token);
   }
 
   submitForm(loginForm){
-    
+    this.isLoading = true
+    this._accountService.doLogin(loginForm.value.email, loginForm.value.password)
+  .subscribe(data=>{ 
+      this.isLoading= false; 
+      this.errorMessage = "";
+      this._router.navigate([("/welcome")]);
+     },
+      error=>{
+        this.isLoading= false; 
+        this.errorMessage = error;
+      });
+
   }
 }

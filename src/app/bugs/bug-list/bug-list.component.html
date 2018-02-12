@@ -1,0 +1,55 @@
+
+<div class="ui main container">
+  
+  <div class="row">
+    <h1 class="ui header">Bugs</h1>
+  </div>
+
+
+<table class="ui celled striped table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Title</th>
+      <th>Created</th>
+      <th>Severity</th>
+      <th>Fixed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let bug of bugs">
+      <td>
+        <a [routerLink]="['/bugs/',bug.id]">
+        {{bug.id}}
+        </a>
+      </td>
+      <td>{{bug.title | uppercase}}</td>
+      <td>{{bug.createdAt | fromnow}}</td>
+      <td> <app-severity [severityRange]='bug.severity'></app-severity> </td>
+      <td>
+          <i [ngClass]="{'green checkmark':bug.isFixed, 'red remove':!bug.isFixed}" class="large icon"></i>
+          <!--<i class="large green checkmark icon" *ngIf="bug.isFixed"></i>
+          <i class="large red remove icon" *ngIf="!bug.isFixed"></i>-->
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!--
+  "id": 1,
+    "title": "collapse bar is crazy",
+    "body": "all crash!",
+    "isFixed": true,
+    "stepsToReproduce": "steps",
+    "createdAt": "2018-02-08T16:40:38.367Z",
+    "modifiedAt": null,
+    "createdById": "7abba1bd-afa7-47a6-b4f0-6a5a2e109826",
+    "createdBy": null,
+    "modifiedById": null,
+    "modifiedBy": null,
+    "severity": 1,
+    "rowVersion": "AAAAAAAAB9E="
+-->
+<pre>
+  {{bugs | json}}
+</pre>
+</div>

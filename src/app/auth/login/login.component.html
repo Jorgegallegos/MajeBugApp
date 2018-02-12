@@ -18,28 +18,33 @@
                   Please enter a valid email
             </div>
           </div>
-          <div class="field">
+          <div class="field" [ngClass]="{'error': passwordVar.touched && passwordVar.invalid}" >
             <div class="ui left icon input">
               <i class="lock icon"></i>
               <input type="password" name="password" placeholder="Password" [(ngModel)]="model.password" #passwordVar="ngModel" required>
             </div>
+            <div class="ui pointing red basic label" *ngIf="passwordVar.touched && passwordVar.invalid">
+                Please enter a password
           </div>
-          <div class="ui fluid large teal submit button">Login</div>
+          </div>
+          <button [ngClass]="{'loading':isLoading}" class="ui fluid large teal submit button" [disabled]="!loginForm.valid">Login</button>
+          
         </div>
-  
-        <div class="ui error message"></div>
-        <pre>
+          <div class="ui negative message" *ngIf="errorMessage" >
+            {{errorMessage}}
+          </div>
+<!--        <pre>
           {{loginForm.value | json}}
         </pre>
         <pre>
             {{model | json}}
-
+            form valid {{loginForm.valid}}
             password.touched {{passwordVar.touched}}
             password.dirty {{passwordVar.dirty}}
             password.valid {{passwordVar.valid}}
             password.invalid {{passwordVar.invalid}}
             password.errors {{passwordVar.errors | json}}
-          </pre>
+          </pre>-->
       </form>
   
       <div class="ui message">
