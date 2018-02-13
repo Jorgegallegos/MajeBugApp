@@ -5,7 +5,13 @@
     <h1 class="ui header">Bugs</h1>
   </div>
 
-
+  <div class="ui right aligned segment">
+      <button class="ui button pink pull-right" [routerLink]="['/addbug/']">
+          <i class="add circle icon"></i>
+          Add a bug
+        </button>
+   </div>
+  
 <table class="ui celled striped table">
   <thead>
     <tr>
@@ -50,6 +56,6 @@
     "rowVersion": "AAAAAAAAB9E="
 -->
 <pre>
-  {{bugs | json}}
+  
 </pre>
 </div>

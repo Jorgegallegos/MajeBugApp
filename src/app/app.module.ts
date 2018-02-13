@@ -4,27 +4,18 @@ import {HttpClientModule, HttpClient} from '@angular/common/http'
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { FormsModule, NgModel } from '@angular/forms'
+import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms'
 import { WelcomeComponent } from './home/welcome/welcome.component';
 import { LoginComponent } from './auth/login/login.component';
 import {AccountService} from './services/account.service';
-import { BugListComponent } from './bugs/bug-list/bug-list.component'
-import { BugService } from './services/bug.service';
-import { FromnowPipe } from './pipes/fromnow.pipe';
-import { SeverityComponent } from './bugs/severity/severity.component';
-import { BugDetailsComponent } from './bugs/bug-details/bug-details.component';
-import { BugGuard } from './guards/bug.guard';
 import { AuthGuard } from './guards/auth.guard';
+import { BugsModule } from './bugs/bugs.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
-    LoginComponent,
-    BugListComponent,
-    FromnowPipe,
-    SeverityComponent,
-    BugDetailsComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -33,13 +24,13 @@ import { AuthGuard } from './guards/auth.guard';
     RouterModule.forRoot([
       {path:'welcome',component:WelcomeComponent, canActivate:[AuthGuard]},
       {path:'login', component: LoginComponent},
-      {path:'bugs', component: BugListComponent, canActivate:[AuthGuard]},
-      {path:'bugs/:id', component:BugDetailsComponent, canActivate:[BugGuard, AuthGuard]},
       {path:'', redirectTo:'welcome', pathMatch:'full'},
       {path:'**', redirectTo:'welcome', pathMatch:'full'}
-    ])
+    ],{useHash:false}),
+    ReactiveFormsModule,
+    BugsModule
   ],
-  providers: [AccountService, BugService, BugGuard, AuthGuard],
+  providers: [AccountService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

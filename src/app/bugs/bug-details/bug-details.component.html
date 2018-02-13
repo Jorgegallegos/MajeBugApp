@@ -24,11 +24,26 @@
         <p>
             Created {{bug.createdAt | fromnow}}, Modified {{bug.modifiedAt | fromnow}}
           </p>
+          <p *ngIf="bug.createdBy">
+            {{bug.createdBy.displayName}}
+          </p>
        </div>
 
        <a class="ui button" [routerLink]="['/bugs']">
         <i class="angle double left icon"></i> Back
       </a>
+
+      <!-- if, else, combined with ngTemplates -->
+
+        <div *ngIf="bug.createdBy;then content else anotherContent">
+        </div>
+        <ng-template #content>
+            content here
+            </ng-template>
+            <ng-template #anotherContent>
+              No hay createdby info
+            </ng-template>
+        
 </div>
 
 

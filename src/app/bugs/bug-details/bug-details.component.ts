@@ -19,6 +19,7 @@ export class BugDetailsComponent implements OnInit {
         this._bugService.
         getBug(Number(param)).subscribe(data=>{
             this.bug = data;
+            //this.bug.createdBy=null
         },
         error=>{});
      }

@@ -7,6 +7,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import {environment} from '../../environments/environment'
 import { AccountService } from './account.service';
+import { Bug } from '../bugs/bug';
 
 
 @Injectable()
@@ -36,8 +37,18 @@ export class BugService {
     return this._http.get(this._urlBugs+"/" + id,httpOptions)
     .do(data=>{})
     .catch(this.handleError);
-    
+  }
 
+
+  public postBug(bug:Bug):Observable<any>{
+    const httpOptions = {
+      headers : new HttpHeaders(
+        {"Authorization":"bearer "+ this._accountService.getToken()}
+      )
+    };
+    return this._http.post(this._urlBugs, bug, httpOptions)
+    .do(data=>{})
+    .catch(this.handleError);
   }
 
 
